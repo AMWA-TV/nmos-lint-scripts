@@ -1,5 +1,11 @@
 #!/bin/bash
 
+echo Linting markdown in root dir...
+if ! ./node_modules/.bin/remark . --use remark-preset-lint-recommended; then
+    failed=y
+fi
+
+
 
 if [ -d docs ]; then
     echo Linting docs...
