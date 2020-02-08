@@ -1,17 +1,8 @@
 #!/bin/bash
 
-echo Linting markdown in root dir...
-if ! ./node_modules/.bin/remark . --use remark-preset-lint-recommended; then
+echo Linting Markdown...
+if ! find . -path ./node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --use remark-preset-lint-recommended; then
     failed=y
-fi
-
-
-
-if [ -d docs ]; then
-    echo Linting docs...
-    if ! ./node_modules/.bin/remark docs/ --use remark-preset-lint-recommended; then
-        failed=y
-    fi
 fi
 
 if [ -d APIs ]; then
