@@ -35,7 +35,7 @@ fi
 
 if [ -d examples ]; then
     echo Linting examples...
-    for i in APIs/schemas/*.json ; do
+    for i in examples/*.json ; do
         if ./node_modules/.bin/jsonlint $i > /dev/null; then
             echo $i ok
         else
