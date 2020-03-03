@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo Linting Markdown...
-if ! find . -path ./node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --rc-path .scripts/.remarkrc; then
+if ! find . -path ./node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --rc-path .scripts/.remarkrc --frail; then
     failed=y
 fi
 
