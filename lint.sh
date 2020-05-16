@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+shopt -s globstar
 
 echo Linting Markdown...
 if ! find . -path ./node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --rc-path .scripts/.remarkrc --frail; then
@@ -35,7 +37,7 @@ fi
 
 if [ -d examples ]; then
     echo Linting examples...
-    for i in examples/*.json ; do
+    for i in examples/**/*.json ; do
         if ./node_modules/.bin/jsonlint $i > /dev/null; then
             echo $i ok
         else
