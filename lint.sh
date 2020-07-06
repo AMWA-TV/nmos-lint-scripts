@@ -8,6 +8,13 @@ if ! find . -name node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_
 fi
 
 if [ -d APIs ]; then
+    echo Checking for missing API includes...
+    for i in $(grep -h -o '[-./_a-zA-Z0-9]*\.json' APIs/*.raml); do
+        if [ ! -e APIs/$i ]; then
+            echo Missing include $i
+            failed=y
+        fi
+    done
     echo Linting APIs...
     for i in APIs/*.raml; do
         perl -pi.bak -e 's/!include//' $i
