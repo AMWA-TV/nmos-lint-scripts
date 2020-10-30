@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-shopt -s globstar
+shopt -s globstar nullglob
 
 echo Linting Markdown...
 if ! find . -name node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --rc-path .scripts/.remarkrc --frail; then
