@@ -2,8 +2,13 @@
 
 shopt -s globstar nullglob
 
+PATH=$PWD/node_modules/.bin:$PATH
+REMARKRC=$PWD/.scripts/.remarkrc
+
+cd ..
+
 echo Linting Markdown...
-if ! find . -name node_modules -prune -o -name '*.md' -print0 | xargs -0 ./node_modules/.bin/remark --rc-path .scripts/.remarkrc --frail; then
+if ! find . -name node_modules -prune -o -name .render -prune -o -name '*.md' -print0 | xargs -0 remark --rc-path $REMARKRC --frail; then
     failed=y
 fi
 
@@ -11,7 +16,7 @@ if [ -d APIs ]; then
     echo Linting APIs...
     for i in APIs/*.raml; do
         perl -pi.bak -e 's/!include//' $i
-        if ./node_modules/.bin/yamllint $i > output; then
+        if yamllint $i > output; then
             echo $i ok
         else
             cat output
@@ -26,7 +31,7 @@ fi
 if [ -d APIs/schemas ]; then
     echo Linting schemas...
     for i in APIs/schemas/*.json ; do
-        if ./node_modules/.bin/jsonlint $i > /dev/null; then
+        if jsonlint $i > /dev/null; then
             echo $i ok
         else
             echo -e "\033[31m$i failed\033[0m"
@@ -38,7 +43,7 @@ fi
 if [ -d examples ]; then
     echo Linting examples...
     for i in examples/**/*.json ; do
-        if ./node_modules/.bin/jsonlint $i > /dev/null; then
+        if jsonlint $i > /dev/null; then
             echo $i ok
         else
             echo -e "\033[31m$i failed\033[0m"
