@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
+set -o errexit
+set -o pipefail
+set -o nounset
+
 shopt -s globstar nullglob
 
 PATH=$PWD/node_modules/.bin:$PATH
 REMARKRC=$PWD/.scripts/.remarkrc
+
+failed=n
 
 cd ..
 
@@ -35,8 +41,8 @@ if [ -d APIs/schemas ]; then
             echo "$i" ok
         else
             echo -e "\033[31m$i failed\033[0m"
-        failed=y
-      fi
+            failed=y
+        fi
     done
 fi
 
@@ -47,8 +53,16 @@ if [ -d examples ]; then
             echo "$i" ok
         else
             echo -e "\033[31m$i failed\033[0m"
-        failed=y
-      fi
+            failed=y
+        fi
+    done
+    for i in examples/**/*.sdp ; do
+        if sdpoker "$i"; then
+            echo "$i" ok
+        else
+            echo -e "\033[31m$i failed\033[0m"
+            failed=y
+        fi
     done
 fi
 
