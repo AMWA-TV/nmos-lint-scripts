@@ -20,7 +20,8 @@ RUN yarn add \
     remark-cli \
     remark-preset-lint-recommended \
     remark-validate-links \
-    yaml-lint
+    yaml-lint \
+    AMWA-TV/sdpoker
 
 # Copy the lint script and other files
 COPY scripts.mk lint.sh .remarkrc /.scripts/
