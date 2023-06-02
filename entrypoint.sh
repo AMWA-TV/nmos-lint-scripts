@@ -1,7 +1,13 @@
 #!/bin/bash -l
 
 export PAGES_REPO_NWO="$GITHUB_REPOSITORY"
-git clone --single-branch ${GITHUB_BRANCH:+--branch $GITHUB_BRANCH} "https://github.com/$GITHUB_REPOSITORY" /github-repo
+echo "GITHUB_REF is $GITHUB_REF"
+mkdir /github-repo
+cd /github-repo
+git init --initial-branch=main
+git remote add origin "https://github.com/$GITHUB_REPOSITORY"
+git fetch --depth=1 origin "$GITHUB_REF"
+git checkout FETCH_HEAD
 cd /github-repo/.lint || exit
 ln -s /.scripts .scripts
 ln -s /node_modules node_modules
