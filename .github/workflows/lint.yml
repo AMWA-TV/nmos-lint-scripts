@@ -4,10 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Install shellcheck
-        run: sudo apt install shellcheck
-      - name: Lint
-        run: make lint
-        
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install shellcheck
+      run: sudo apt install shellcheck
+    - name: Lint
+      run: make lint
+
