@@ -7,7 +7,7 @@ cd /github-repo || exit
 git init --initial-branch=main
 git remote add origin "https://github.com/$GITHUB_REPOSITORY"
 git fetch --depth=1 origin "$GITHUB_REF"
-git checkout FETCH_HEAD
+git -c advice.detachedHead=false checkout FETCH_HEAD
 cd .lint || exit
 ln -s /.scripts .scripts
 ln -s /node_modules node_modules
