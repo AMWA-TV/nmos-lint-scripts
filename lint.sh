@@ -12,6 +12,7 @@ REMARKRC=$PWD/.scripts/.remarkrc
 failed=n
 
 # Load environment variables from .env (if present)
+# shellcheck disable=SC1091
 if [ -f .env ]; then
     set -a
     source .env
