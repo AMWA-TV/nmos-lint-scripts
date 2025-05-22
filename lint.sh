@@ -11,6 +11,13 @@ REMARKRC=$PWD/.scripts/.remarkrc
 
 failed=n
 
+# Load environment variables from .env (if present)
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
+fi
+
 cd ..
 
 echo Linting Markdown...
@@ -57,7 +64,8 @@ if [ -d examples ]; then
         fi
     done
     for i in examples/**/*.sdp ; do
-        if sdpoker "$i"; then
+        # shellcheck disable=SC2086
+        if sdpoker "$i" ${SDPOKER_OPTIONS:-}; then
             echo "$i" ok
         else
             echo -e "\033[31m$i failed\033[0m"
