@@ -36,8 +36,8 @@ if [ -d APIs ]; then
             cat output
             echo -e "\033[31m$i failed\033[0m"
             failed=y
-            rm output
         fi
+        rm output
         mv "$i.bak" "$i"
     done
 fi
